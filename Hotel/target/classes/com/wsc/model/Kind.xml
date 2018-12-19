@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wsc.mapper.KindMapper">
+	
+	<select id="selectOne" parameterType="Integer" resultType="Kind">
+		select * from kind where id=#{0} and status!=-1
+	</select>
+	<select id="select" resultType="Kind">
+		select * from kind where status!=-1
+	</select>
+	<insert id="insert" parameterType="Kind">
+		insert into kind
+		set
+		 <if test="name!=null"> name=#{name},</if>
+		 <if test="icon!=null"> icon=#{icon},</if>
+		 <if test="info!=null"> info=#{info}</if>
+	</insert>
+	<delete id="delete" parameterType="Integer">
+		delete from kind where id=#{0}
+	</delete>
+	<update id="update" parameterType="Kind">
+		update kind set 
+		<if test="name!=null">name=#{name},</if>
+		<if test="icon!=null">icon=#{icon},</if>
+		<if test="info!=null">info=#{info},</if>
+		<if test="status!=null">status=#{status}</if>
+		 where id=#{id}
+	</update>
+</mapper>

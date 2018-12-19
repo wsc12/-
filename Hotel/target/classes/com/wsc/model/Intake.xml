@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wsc.mapper.IntakeMapper">
+	<resultMap type="Intake" id="IntakeMap">
+			<id column="id" property="id"  />
+			<result column="custom" property="custom" />
+			<result column="phone" property="phone" />
+			<result column="rdate" property="rdate" />
+			<result column="persons" property="persons" />
+			<result column="ldate" property="ldate" />
+			<result column="price" property="price" />
+			<result column="total" property="total" />
+			<result column="hid" property="hid" />
+			<result column="res" property="res"/>
+			<association property="house" javaType="House">
+					<result column="hname" property="hname" />
+					<association property="kind" javaType="Kind">
+							<id column="kid" property="id"/>
+							<result column="name" property="name"/>
+					</association>
+			</association>
+			
+	
+	</resultMap>
+	<insert id="insert" parameterType="int">
+			insert into intake(custom,wxnick,phone,persons,rtime,rdate,ldate,hid,price,total,res)
+				select custom,wxnick,phone,persons,rtime,rdate,ldate,hid,price,total,res  from reserve where id=#{0}
+	</insert>
+	<insert id="insertValue" parameterType="Intake">
+		insert into intake set
+			custom=#{custom},
+			phone=#{phone},
+			persons=#{persons},
+			rdate=#{rdate},
+			ldate=#{ldate},
+			hid=#{hid},
+			price=#{price},
+			total=#{total}
+	</insert>
+	<select id="select" resultMap="IntakeMap">
+		select r.id,r.custom,r.phone,r.rdate,r.persons,r.ldate,r.price,r.total,r.hid,h.hname,r.res,k.id kid,k.name from intake r inner join house h on  r.hid=h.hid inner join kind k on h.kid=k.id
+	</select>
+	<update id="update" parameterType="int">
+			update intake set res=1 where id=#{0}
+	</update>
+	
+</mapper>

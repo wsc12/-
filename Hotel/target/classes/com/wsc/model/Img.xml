@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wsc.mapper.ImgMapper">
+	<resultMap type="Img" id="imgResultMap">
+		<id column="id" property="id"/>
+		<result column="belong" property="belong"/>
+		<result column="src" property="src"/>
+	</resultMap>
+	<select id="selectOne" parameterType="Integer" resultType="Img">
+		select * from img where id=#{0}
+	</select>
+	<select id="select" resultMap="imgResultMap">
+		select * from img
+	</select>
+	<select id="selectHouse" parameterType="String" resultType="String">
+		select src from img where belong=#{0} order by id desc limit 0,4
+	</select>
+	<insert id="insert" parameterType="Img">
+		insert into img(belong,src) values(#{belong},#{src})
+	</insert>
+	<delete id="delete" parameterType="Integer">
+		delete from img where id=#{0}
+	</delete>
+	<update id="update" parameterType="Img">
+		update img set belong=#{belong},src=#{src} where id=#{id}
+	</update>
+</mapper>

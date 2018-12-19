@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wsc.mapper.HouseMapper">
+	
+	<select id="selectOne" parameterType="Integer" resultType="House">
+		select * from house h inner join kind on hid=#{0} and kid=id and h.status>=0
+	</select>
+	<select id="select" resultType="House" parameterType="map">
+		select * from house h inner join kind on h.kid=id and
+		 <if test="hname!=null"> hname like concat("%",#{hname},"%") and</if>
+		 <if test="kid!=null"> kid=#{kid} and </if>
+		 <if test="beds!=null"> beds=#{beds} and </if>
+		 kind.status>=0 and 
+		 <if test="status==null"> h.status>=0</if>
+		<if test="status!=null"> h.status=#{status}</if>
+	</select>
+	<insert id="insert" parameterType="House">
+		insert into house(hname,kid,size,beds,price,info) values(#{hname},#{kid},#{size},#{beds},#{price},#{info})
+	</insert>
+	<delete id="delete" parameterType="Integer">
+		delete from house where hid=#{0}
+	</delete>
+	<update id="update" parameterType="House">
+		update house set 
+		<if test="hname!=null"> hname=#{hname},</if>
+		<if test="kid!=null">kid=#{kid},</if>
+		<if test="size!=null">size=#{size},</if>
+		<if test="beds!=null">beds=#{beds},</if>
+		<if test="price!=null">price=#{price},</if>
+		<if test="info!=null">info=#{info},</if>
+		<if test="pica!=null">pica=#{pica},</if>
+		<if test="picb!=null">picb=#{picb},</if>
+		<if test="picc!=null">picc=#{picc},</if>
+		<if test="picd!=null">picd=#{picd},</if>
+		<if test="pice!=null">pice=#{pice},</if>
+		<if test="picf!=null">picf=#{picf},</if>
+		<if test="status!=null">status=#{status},</if>
+		 hid=#{hid}
+		where hid=#{hid}
+	</update>
+</mapper>

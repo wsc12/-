@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wsc.mapper.PriceMapper">
+		<resultMap type="Price" id="PriceMap">
+			<id column="id" property="id" />
+			<result column="startDate" property="startDate" />
+			<result column="endDate" property="endDate" />
+			<result column="price" property="price" />
+			<result column="discount" property="discount" />
+			<result column="lastPrice" property="lastPrice" />
+			<association property="kd" javaType="Kind">
+					<id column="kid" property="id" />
+					<result column="name" property="name" />
+					<result column="info" property="info" />
+					
+			</association>
+		</resultMap>
+		<insert id="insert" parameterType="Price">
+				insert into discountprice(kid,startDate,endDate,price,discount,lastPrice) values(#{kid},#{startDate},#{endDate},#{price},#{discount},#{lastPrice})
+		</insert>
+		<select id="select" resultMap="PriceMap">
+				select ds.id,ds.startDate,ds.endDate,ds.price,ds.discount,ds.lastPrice,k.name,k.id kid from discountprice ds inner join kind k on kid=k.id where k.status!=-1
+		</select>
+		<select id="selectOne" parameterType="Map" resultType="Price">
+				select * from discountPrice where kid=#{id} and #{rdate} between startDate and endDate limit 1
+		</select>
+		<update id="update" parameterType="Price">
+				update discountPrice set  kid=#{kid},
+					<if test="startDate!=null">startDate=#{startDate},</if>
+					<if test="endDate!=null">endDate=#{endDate},</if>
+					<if test="price!=null">price=#{price},</if>
+					<if test="discount!=null">discount=#{discount},</if>
+					<if test="lastPrice!=null">lastPrice=#{lastPrice},</if>
+					id=#{id} where id=#{id}		
+		</update>
+		<delete id="delete" parameterType="int">
+				delete from discountPrice where id=#{id}
+		</delete>
+</mapper>

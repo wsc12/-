@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wsc.mapper.RuleMapper">
+	
+	<select id="selectOne" parameterType="Integer" resultType="Rule">
+		select * from rule where aid=#{0}
+	</select>
+	<select id="select" resultType="Rule">
+		select * from rule
+	</select>
+	<insert id="insert" parameterType="Rule">
+		<if test="aid!=null and pid!=null">
+		insert into rule(aid,pid) values(#{aid},#{pid})
+		</if>
+		
+	</insert>
+	<delete id="delete" parameterType="Integer">
+		delete from rule where aid=#{0}
+	</delete>
+	<update id="update" parameterType="Rule">
+		update rule set pid=#{pid} where aid=#{aid}
+	</update>
+</mapper>

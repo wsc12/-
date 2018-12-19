@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wsc.mapper.AdminMapper">
+	
+	<insert id="insert" parameterType="Admin">
+			insert into admin set name=#{name},password=#{password},status=#{status}
+	
+	</insert>
+	<update id="update" parameterType="Admin">
+	    update admin set
+	     <if test="name!=null"> name=#{name},</if>
+	     <if test="password!=null"> password=#{password},</if>
+	     <if test="status!=null"> status=#{status},</if>
+	     id=#{id} where id=#{id};
+	</update>
+	<select id="selectOne" parameterType="String" resultType="int">
+			select id from admin where name=#{0};
+	</select>
+</mapper>
