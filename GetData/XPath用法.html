@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<title>Document</title>
+     <script type="text/javascript" src="js/jquery-3.2.1.js"></script>
+        <link rel="stylesheet" href="css/bootstrap.css">
+        <script type="text/javascript" src="js/bootstrap.js"></script>
+</head>
+<body>
+	<div style="width: 80%;margin:20px auto;">
+		<h1>例子</h1>
+		<textarea  class="form-control" cols="40" rows="13" readonly  style="resize:none" >
+			<?xml version="1.0" encoding="ISO-8859-1"?>
+			<bookstore>
+			<book>
+			  <title lang="eng">Harry Potter</title>
+			  <price>29.99</price>
+			</book>
+			<book>
+			  <title lang="eng">Learning XML</title>
+			  <price>39.95</price>
+			</book>
+			</bookstore>
+		</textarea>
+		<h1>选区节点</h1>
+		<div class="table-responsive">
+			<table class="table table-hover">
+				<thead>
+					<th>表达式</th>
+					<th>描述</th>
+				</thead>
+				<tbody>
+					<tr>
+						<td>nodename</td>
+						<td>选取此节点的所有子节点。</td>
+					</tr>
+					<tr>
+						<td>/</td>
+						<td>从根节点选取。</td>
+					</tr>
+					<tr>
+						<td>//</td>
+						<td>从匹配选择的当前节点选择文档中的节点，而不考虑它们的位置</td>
+					</tr>
+					<tr>
+						<td>.</td>
+						<td>选取当前节点</td>
+					</tr>
+					<tr>
+						<td>..</td>
+						<td>选取当前节点的父节点。</td>
+					</tr>
+					<tr>
+						<td>@</td>
+						<td>选取属性</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		
+		<h1>谓语（Predicates)</h1>
+		<div class="table-responsive">
+				<table class="table table-hover">
+					<thead>
+						<th>路径表达式</th>
+						<th>结果</th>
+					</thead>
+					<tbody>
+						<tr>
+							<td>bookstore</td>
+							<td>选取 bookstore 元素的所有子节点</td>
+						</tr>
+						<tr>
+							<td>/bookstore</td>
+							<td>选取根元素 bookstore。</td>
+						</tr>
+						<tr>
+							<td>bookstore/book</td>
+							<td>选取属于 bookstore 的子元素的所有 book 元素</td>
+						</tr>
+						<tr>
+							<td>//book</td>
+							<td>选取所有 book 子元素，而不管它们在文档中的位置</td>
+						</tr>
+						<tr>
+							<td>bookstore//book</td>
+							<td>选择属于 bookstore 元素的后代的所有 book 元素，而不管它们位于 bookstore 之下的什么位置。</td>
+						</tr>
+						<tr>
+							<td>//@lang</td>
+							<td>选取名为 lang 的所有属性</td>
+						</tr>
+					</tbody>
+				</table>
+
+		</div>
+			
+		
+		<h1>选取未知节点</h1>
+		<div class="table-responsive">
+			<table class="table table-hover">
+				<thead>
+					<th>通配符</th>
+					<th>描述</th>
+				</thead>
+				<tbody>
+					<tr>
+						<td>*</td>
+						<td>匹配任何元素节点</td>
+					</tr>
+					<tr>
+						<td>@*</td>
+						<td>匹配任何属性节点</td>
+					</tr>
+					<tr>
+						<td>node()</td>
+						<td>匹配任何类型的节点。</td>
+					</tr>
+				</tbody>
+			</table>
+
+		</div>
+		<h1>实例</h1>
+		<div class="table-responsive">
+			<table class="table table-hover">
+				<thead>
+					<th>路径表达式</th>
+					<th>结果</th>
+				</thead>
+				<tbody>
+					<tr>
+						<td>/bookstore/*</td>
+						<td>选取 bookstore 元素的所有子元素</td>
+					</tr>
+					<tr>
+						<td>//*</td>
+						<td>选取文档中的所有元素</td>
+					</tr>
+					<tr>
+						<td>//title[@*]</td>
+						<td>选取所有带有属性的 title 元素</td>
+					</tr>
+				</tbody>
+			</table>
+
+		</div>
+		<h1>选取若干路径</h1>
+		<div class="table-responsive">
+			<table class="table table-hover">
+				<thead>
+					<th>路径表达式</th>
+					<th>结果</th>
+				</thead>
+				<tbody>
+					<tr>
+						<td>//book/title | //book/price/*</td>
+						<td>选取 book 元素的所有 title 和 price 元素</td>
+					</tr>
+					<tr>
+						<td>//title | //price</td>
+						<td>选取文档中的所有 title 和 price 元素</td>
+					</tr>
+					<tr>
+						<td>/bookstore/book/title | //price</td>
+						<td>选取属于 bookstore 元素的 book 元素的所有 title 元素，以及文档中所有的price元素</td>
+					</tr>
+				</tbody>
+			</table>
+
+		</div>
+		<h1>XPath 轴</h1>
+		<div class="table-responsive">
+			<table class="table table-hover">
+				<thead>
+					<th>轴名称</th>
+					<th>结果</th>
+				</thead>
+				<tbody>
+					<tr>
+						<td>ancestor</td>
+						<td>选取当前节点的所有先辈（父、祖父等）</td>
+					</tr>
+					<tr>
+						<td>ancestor-or-self</td>
+						<td>选取当前节点的所有先辈（父、祖父等）以及当前节点本身。</td>
+					</tr>
+					<tr>
+						<td>attribute</td>
+						<td>选取当前节点的所有属性</td>
+					</tr>
+					<tr>
+						<td>child</td>
+						<td>选取当前节点的所有子元素</td>
+					</tr>
+					<tr>
+						<td>descendant</td>
+						<td>选取当前节点的所有后代元素（子、孙等）</td>
+					</tr>
+					<tr>
+						<td>descendant-or-self</td>
+						<td>选取当前节点的所有后代元素（子、孙等）以及当前节点本身</td>
+					</tr>
+					<tr>
+						<td>following</td>
+						<td>选取文档中当前节点的结束标签之后的所有节点</td>
+					</tr>
+					<tr>
+						<td>namespace</td>
+						<td>选取当前节点的所有命名空间节点。</td>
+					</tr>
+					<tr>
+						<td>parent</td>
+						<td>选取当前节点的父节点。</td>
+					</tr>
+					<tr>
+						<td>preceding</td>
+						<td>选取文档中当前节点的开始标签之前的所有节点</td>
+					</tr>
+					<tr>
+						<td>preceding-sibling</td>
+						<td>选取当前节点之前的所有同级节点</td>
+					</tr>
+					<tr>
+						<td>self</td>
+						<td>选取当前节点。</td>
+					</tr>
+				</tbody>
+			</table>
+
+		</div>
+		<h1>步的语法：</h1>
+		<div class="table-responsive">
+			<table class="table table-hover">
+				<thead>
+					<th>例子</th>
+					<th>结果</th>
+				</thead>
+				<tbody>
+					<tr>
+						<td>child::book</td>
+						<td>选取所有属于当前节点的子元素的 book 节点</td>
+					</tr>
+					<tr>
+						<td>attribute::lang</td>
+						<td>选取当前节点的 lang 属性。</td>
+					</tr>
+					<tr>
+						<td>child::*</td>
+						<td>选取当前节点的所有子元素</td>
+					</tr>
+					<tr>
+						<td>attribute::*</td>
+						<td>选取当前节点的所有属性。</td>
+					</tr>
+					<tr>
+						<td>child::text()</td>
+						<td>选取当前节点的所有文本子节点</td>
+					</tr>
+					<tr>
+						<td>child::node()</td>
+						<td>选取当前节点的所有子节点</td>
+					</tr>
+					<tr>
+						<td>descendant::book</td>
+						<td>选取当前节点的所有 book 后代</td>
+					</tr>
+					<tr>
+						<td>ancestor::book</td>
+						<td>选择当前节点的所有 book 先辈</td>
+					</tr>
+					<tr>
+						<td>ancestor-or-self::book</td>
+						<td>选取当前节点的所有 book 先辈以及当前节点（如果此节点是 book 节点）</td>
+					</tr>
+					<tr>
+						<td>child::*/child::price</td>
+						<td>选取当前节点的所有 price 孙节点。</td>
+					</tr>
+				</tbody>
+			</table>
+
+		</div>
+	
+	
+	
+
+	</div>
+	
+
+
+	 
+
+
+</body>
+</html>
+
